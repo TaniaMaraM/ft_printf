@@ -6,7 +6,7 @@
 #    By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/22 16:40:49 by tmarcos           #+#    #+#              #
-#    Updated: 2024/12/22 16:44:22 by tmarcos          ###   ########.fr        #
+#    Updated: 2024/12/26 16:11:37 by tmarcos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ REMOVE 		= rm -f
 
 INCLUDE		= -I .
 
-SRCS 		= 
+SRCS 		= ft_printf.c			\
+				conversions_sc.c			\
+				
 
 OBJS 		= $(SRCS:.c=.o)
 
@@ -53,20 +55,20 @@ fclean:		clean
 
 re:			fclean $(NAME)
 
-# # Alvo para rodar os testes
-# test:       $(NAME)
-# 			@$(CC) $(FLAGS) $(INCLUDE) -o test test.c $(NAME)
-# 			@./test
-# 			@echo "$(GREY)libftprintf: $(GREEN)test was completed$(RESET)"
+# Alvo para rodar os testes
+test:       $(NAME)
+			@$(CC) $(FLAGS) $(INCLUDE) -o test test.c $(NAME)
+			@./test
+			@echo "$(GREY)libftprintf: $(GREEN)test was completed$(RESET)"
 
-# # Limpeza dos arquivos de testes
-# clean_test:
-# 			@$(REMOVE) test
-# 			@echo "$(GREY)Test: $(GREEN)test was deleted$(RESET)"
+# Limpeza dos arquivos de testes
+clean_test:
+			@$(REMOVE) test
+			@echo "$(GREY)Test: $(GREEN)test was deleted$(RESET)"
 
-# # Recompila e roda os testes
-# re_test:    clean_test $(NAME) test
-# 			@./test
-# 			@echo "$(GREY)Test: $(GREEN)test was recompiled and completed$(RESET)"
-		
+# Recompila e roda os testes
+re_test:    clean_test $(NAME) test
+			@./test
+			@echo "$(GREY)Test: $(GREEN)test was recompiled and completed$(RESET)"
+
 .PHONY:		all clean fclean

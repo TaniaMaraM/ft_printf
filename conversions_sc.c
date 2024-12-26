@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   conversions_sc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 16:45:04 by tmarcos           #+#    #+#             */
-/*   Updated: 2024/12/26 15:58:36 by tmarcos          ###   ########.fr       */
+/*   Created: 2024/12/26 15:14:02 by tmarcos           #+#    #+#             */
+/*   Updated: 2024/12/26 17:27:53 by tmarcos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#include "libftprintf.h"
 
-# include <stddef.h>
-# include <unistd.h>
-# include <limits.h>
-# include <stdlib.h>
-# include <stdarg.h>
+int	print_char(char c)
+{
+	return (write(1, &c, 1));
+}
 
-int	ft_printf(const char *format, ...);
-int	handle_placeholder(char specifier, va_list args);
-int	print_string(char *str);
-int	print_char(char c);
+int	print_string(char *str)
+{
+	int	len;
+	int	i;
 
-#endif
+	len = 0;
+	i = 0;
+	if (!str)
+		return (-1);
+	while (str[i])
+	{
+		len += print_char(str[i]);
+		i++;
+	}
+	return (len);
+}
+
