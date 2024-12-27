@@ -6,20 +6,20 @@
 /*   By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 20:09:05 by tmarcos           #+#    #+#             */
-/*   Updated: 2024/12/26 17:35:26 by tmarcos          ###   ########.fr       */
+/*   Updated: 2024/12/27 14:51:52 by tmarcos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	handle_placeholder(char *specifier, va_list args)
+int	handle_placeholder(char specifier, va_list args)
 {
 	if (specifier == 'c')
 		return (print_char(va_arg(args, int)));
 	else if (specifier == 's')
 		return (print_string(va_arg(args, char *)));
-	// else if (specifier == 'd' || specifier == 'i')
-	// 	return (print_number(va_arg(args, int)));
+	else if (specifier == 'd' || specifier == 'i')
+		return (print_number(va_arg(args, int)));
 	// else if (specifier == 'u')
 	// 	return (print_unsigned(va_arg(args, unsigned int)));
 	// else if (specifier == 'x' || specifier == 'X')
