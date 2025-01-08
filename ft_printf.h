@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   ft_printf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/22 16:45:04 by tmarcos           #+#    #+#             */
-/*   Updated: 2024/12/27 17:31:12 by tmarcos          ###   ########.fr       */
+/*   Updated: 2025/01/07 19:09:06 by tmarcos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stddef.h>
 # include <unistd.h>
@@ -25,6 +25,9 @@ int	print_string(char *str);
 int	print_char(char c);
 int	print_number(int n);
 int	print_unsigned(unsigned int n);
-int	print_number_base(unsigned int n, const char *base);
+int	print_hex_upper(unsigned int n);
+int	print_hex_lower(unsigned int n);
+int	print_hex(unsigned int n, int uppercase);
+int print_pointer(void *ptr);
 
 #endif

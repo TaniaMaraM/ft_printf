@@ -6,7 +6,7 @@
 #    By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/22 16:40:49 by tmarcos           #+#    #+#              #
-#    Updated: 2024/12/27 17:30:37 by tmarcos          ###   ########.fr        #
+#    Updated: 2025/01/07 19:25:28 by tmarcos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ INCLUDE		= -I .
 SRCS 		= ft_printf.c			\
 				print_char_string.c			\
 				print_integer.c				\
+				print_hex.c				\
 
 
 OBJS 		= $(SRCS:.c=.o)
@@ -39,22 +40,18 @@ $(NAME): 	$(OBJS)
 			@ar -rcs $(NAME) $(OBJS)
 			@echo "$(GREY)libftprintf: $(GREEN)$(NAME) was created$(RESET)"
 
-bonus:		$(OBJS) $(BONUS_OBJS)
-			@ar -rcs $(NAME) $(OBJS) $(BONUS_OBJS)
-			@echo "$(GREY)libftprintf: $(GREEN)$(NAME) was created with Bonus$(RESET)"
-
-%.o: %.c libftprintf.h
+%.o: %.c ft_printf.h
 			@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
-			@$(REMOVE) $(OBJS) $(BONUS_OBJS)
+			@$(REMOVE) $(OBJS)
 			@echo "$(GREY)libftprintf: object files were deleted$(RESET)"
 
 fclean:		clean
 			@$(REMOVE) $(NAME)
 			@echo "$(GREY)libftprintf: $(NAME) was deleted$(RESET)"
 
-re:			fclean $(NAME)
+re:			fclean all 
 
 # Alvo para rodar os testes
 test:       $(NAME)
