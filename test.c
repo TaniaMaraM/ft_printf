@@ -1,123 +1,143 @@
 #include "ft_printf.h"
+#include <stdio.h> 
 
-int	main(void)
+
+int main(void)
 {
     // Testando caracteres
     ft_printf("=== TESTANDO CARACTERES ===\n");
-    ft_printf("Single character: %c\n", 'A');
-    ft_printf("Non-printable character: %c\n", '\n');
-    ft_printf("Edge case (null character): %c\n", '\0'); // Caso especial para caractere nulo
+    ft_printf("ft_printf: Single character: %c\n", 'A');
+    printf("printf   : Single character: %c\n", 'A');
+    ft_printf("ft_printf: Non-printable character: %c\n", '\n');
+    printf("printf   : Non-printable character: %c\n", '\n');
+    ft_printf("ft_printf: Edge case (null character): %c\n", '\0');
+    printf("printf   : Edge case (null character): %c\n", '\0');
 
     // Testando strings
     ft_printf("\n=== TESTANDO STRINGS ===\n");
-    ft_printf("Basic string: %s\n", "42 Berlin");
-    ft_printf("Empty string: %s\n", "");
-    ft_printf("Null string: %s\n", NULL); // Deve tratar corretamente caso seja NULL
+    ft_printf("ft_printf: Basic string: %s\n", "42 Berlin");
+    printf("printf   : Basic string: %s\n", "42 Berlin");
+    ft_printf("ft_printf: Empty string: %s\n", "");
+    printf("printf   : Empty string: %s\n", "");
+    ft_printf("ft_printf: Null string: %s\n", (char *)NULL);
+    printf("printf   : Null string: %s\n", (char *)NULL);
 
     // Testando porcentagem
     ft_printf("\n=== TESTANDO PORCENTAGEM ===\n");
-    ft_printf("Single percent sign: %%\n");
-    ft_printf("Percent in a sentence: Testing %% sign\n");
+    ft_printf("ft_printf: Single percent sign: %%\n");
+    printf("printf   : Single percent sign: %%\n");
 
     // Testando inteiros
     ft_printf("\n=== TESTANDO INTEIROS ===\n");
-    ft_printf("Zero: %d\n", 0);
-    ft_printf("Positive integer: %d\n", 12345);
-    ft_printf("Negative integer: %d\n", -12345);
-    ft_printf("Maximum integer: %d\n", 2147483647);
-    ft_printf("Minimum integer: %d\n", -2147483648);
+    ft_printf("ft_printf: Positive integer: %i\n", 12345);
+    printf("printf   : Positive integer: %i\n", 12345);
+    ft_printf("ft_printf: Maximum integer: %i\n", 2147483647);
+    printf("printf   : Maximum integer: %i\n", 2147483647);
+   // Teste do menor inteiro (minimum integer)
+    ft_printf("ft_printf: Minimum integer: %d\n", (int)-2147483648);
+    printf("printf   : Minimum integer: %d\n", (int)-2147483648);
 
-    // Testando inteiros não assinados
+    // Testando unsigned
     ft_printf("\n=== TESTANDO UNSIGNED ===\n");
-    ft_printf("Zero: %u\n", 0);
-    ft_printf("Small unsigned: %u\n", 12345);
-    ft_printf("Maximum unsigned: %u\n", 4294967295);
+    ft_printf("ft_printf: Maximum unsigned: %u\n", 4294967295U);
+    printf("printf   : Maximum unsigned: %u\n", 4294967295U);
 
-    // Testando hexadecimal (lowercase)
-    ft_printf("\n=== TESTANDO HEXADECIMAL (lowercase) ===\n");
-    ft_printf("Zero: %x\n", 0);
-    ft_printf("Small hex: %x\n", 42);
-    ft_printf("Large hex: %x\n", 3735928559); // DeadBeef
-    ft_printf("Maximum unsigned int: %x\n", 4294967295);
-
-    // Testando hexadecimal (uppercase)
-    ft_printf("\n=== TESTANDO HEXADECIMAL (uppercase) ===\n");
-    ft_printf("Zero: %X\n", 0);
-    ft_printf("Small hex: %X\n", 42);
-    ft_printf("Large hex: %X\n", 3735928559); // DEADBEEF
-    ft_printf("Maximum unsigned int: %X\n", 4294967295);
+    // Testando hexadecimal (lowercase e uppercase)
+    ft_printf("\n=== TESTANDO HEXADECIMAL (lowercase e uppercase) ===\n");
+    ft_printf("ft_printf: Lowercase: %x\n", 3735928559U);
+    printf("printf   : Lowercase: %x\n", 3735928559U);
+    ft_printf("ft_printf: Uppercase: %X\n", 3735928559U);
+    printf("printf   : Uppercase: %X\n", 3735928559U);
 
     // Testando ponteiros
+    ft_printf("=== TESTANDO PONTEIRO NULO ===\n");
+    ft_printf("ft_printf: Null pointer: [%p]\n", (void *)NULL);
+    printf("printf   : Null pointer: [%p]\n", (void *)NULL);
     ft_printf("\n=== TESTANDO POINTERS ===\n");
     int num = 42;
     void *ptr = &num;
-    ft_printf("Pointer to int: %p\n", ptr);
-    ft_printf("Null pointer: %p\n", NULL);
-    ft_printf("Pointer to zero: %p\n", (void *)0); // Ponteiro nulo explícito
-    ft_printf("Pointer with specific address: %p\n", (void *)0xDEADBEEF); // Endereço específico
+    ft_printf("ft_printf: Pointer to int: %p\n", ptr);
+    printf("printf   : Pointer to int: %p\n", ptr);
 
-    // Testando combinações
+    // Testando combinações e séries de conversões idênticas
     ft_printf("\n=== TESTANDO COMBINAÇÕES ===\n");
-    ft_printf("Character, string, and integer: %c %s %d\n", 'A', "42", 123);
-    ft_printf("Hex, unsigned, and pointer: %x %u %p\n", 3735928559, 4294967295, &num);
+    ft_printf("ft_printf: Mixed: %c %s %d %X\n", 'A', "42", 123, 3735928559U);
+    printf("printf   : Mixed: %c %s %d %X\n", 'A', "42", 123, 3735928559U);
 
-    // Edge cases
+    // Testando edge cases
     ft_printf("\n=== TESTANDO EDGE CASES ===\n");
-    ft_printf("Invalid specifier: %q\n"); // Não deve imprimir nada ou tratar erro
-    ft_printf("Underflow test: %d\n", -2147483648 - 1); // Comportamento indefinido
-    ft_printf("Very large unsigned: %u\n", 4294967295 + 1); // Testa valor fora do intervalo
+    ft_printf("ft_printf: Very large unsigned: %u\n", 4294967295U + 1U);
+    printf("printf   : Very large unsigned: %u\n", 4294967295U + 1U);
+
     return (0);
 }
 
 
 // int	main(void)
 // {
-//     // Testes básicos de funcionalidade
-//     ft_printf("Hello, world!\n");
-//     ft_printf("Character: %c\n", 'A');
-//     ft_printf("String: %s\n", "42 Berlin");
-//     ft_printf("Percent sign: %%\n");
-//     ft_printf("Invalid specifier: %q\n"); // Não deve imprimir nada
+//     // Testando caracteres
+//     ft_printf("=== TESTANDO CARACTERES ===\n");
+//     ft_printf("Single character: %c\n", 'A');
+//     ft_printf("Non-printable character: %c\n", '\n');
+//     ft_printf("Edge case (null character): %c\n", '\0'); // Caso especial para caractere nulo
+
+//     // Testando strings
+//     ft_printf("\n=== TESTANDO STRINGS ===\n");
+//     ft_printf("Basic string: %s\n", "42 Berlin");
+//     ft_printf("Empty string: %s\n", "");
+//     ft_printf("Null string: %s\n", NULL); // Deve tratar corretamente caso seja NULL
+
+//     // Testando porcentagem
+//     ft_printf("\n=== TESTANDO PORCENTAGEM ===\n");
+//     ft_printf("Single percent sign: %%\n");
+//     ft_printf("Percent in a sentence: Testing %% sign\n");
 
 //     // Testando inteiros
-//     ft_printf("Integer (positive): %d\n", 15);
-//     ft_printf("Integer (negative): %d\n", -2147483648);
-//     ft_printf("Integer (max value): %d\n", 2147483647);
-//     ft_printf("Integer: %d\n", -2147488);
+//     ft_printf("\n=== TESTANDO INTEIROS ===\n");
+//     ft_printf("Zero: %d\n", 0);
+//     ft_printf("Positive integer: %d\n", 12345);
+//     ft_printf("Negative integer: %d\n", -12345);
+//     ft_printf("Maximum integer: %d\n", 2147483647);
+//     ft_printf("Minimum integer: %d\n", -2147483648);
 
 //     // Testando inteiros não assinados
-//     ft_printf("Unsigned integer (max value): %u\n", 4294967295);
-//     ft_printf("Unsigned integer (zero): %u\n", 0);
-//     ft_printf("Unsigned integer: %u\n", 123456789);
+//     ft_printf("\n=== TESTANDO UNSIGNED ===\n");
+//     ft_printf("Zero: %u\n", 0);
+//     ft_printf("Small unsigned: %u\n", 12345);
+//     ft_printf("Maximum unsigned: %u\n", 4294967295);
 
 //     // Testando hexadecimal (lowercase)
-//     ft_printf("Hexadecimal (lowercase, small number): %x\n", 15);
-//     ft_printf("Hexadecimal (lowercase, zero): %x\n", 0);
-//     ft_printf("Hexadecimal (lowercase, max unsigned int): %x\n", 4294967295);
-//     ft_printf("Hexadecimal (lowercase, random): %x\n", 3735928559); // DeadBeef
+//     ft_printf("\n=== TESTANDO HEXADECIMAL (lowercase) ===\n");
+//     ft_printf("Zero: %x\n", 0);
+//     ft_printf("Small hex: %x\n", 42);
+//     ft_printf("Large hex: %x\n", 3735928559); // DeadBeef
+//     ft_printf("Maximum unsigned int: %x\n", 4294967295);
 
 //     // Testando hexadecimal (uppercase)
-//     ft_printf("Hexadecimal (uppercase, small number): %X\n", 15);
-//     ft_printf("Hexadecimal (uppercase, zero): %X\n", 0);
-//     ft_printf("Hexadecimal (uppercase, max unsigned int): %X\n", 4294967295);
-//     ft_printf("Hexadecimal (uppercase, random): %X\n", 3735928559); // DEADBEEF
-// // Testando ponteiros
-//     int x = 42;
-//     int *ptr = &x;
-//     void *null_ptr = NULL;
+//     ft_printf("\n=== TESTANDO HEXADECIMAL (uppercase) ===\n");
+//     ft_printf("Zero: %X\n", 0);
+//     ft_printf("Small hex: %X\n", 42);
+//     ft_printf("Large hex: %X\n", 3735928559); // DEADBEEF
+//     ft_printf("Maximum unsigned int: %X\n", 4294967295);
 
-//     ft_printf("Pointer (valid): %p\n", ptr);          // Endereço de memória de ptr
-//     ft_printf("Pointer (null): %p\n", null_ptr);      // Deve imprimir "(nil)"
-//     ft_printf("Pointer (zero cast): %p\n", (void *)0); // Deve imprimir "(nil)"
-//     ft_printf("Pointer (random address): %p\n", (void *)0xDEADBEEF); // Endereço arbitrário
+//     // Testando ponteiros
+//     ft_printf("\n=== TESTANDO POINTERS ===\n");
+//     int num = 42;
+//     void *ptr = &num;
+//     ft_printf("Pointer to int: %p\n", ptr);
+//     ft_printf("Null pointer: %p\n", NULL);
+//     ft_printf("Pointer to zero: %p\n", (void *)0); // Ponteiro nulo explícito
+//     ft_printf("Pointer with specific address: %p\n", (void *)0xDEADBEEF); // Endereço específico
 
-//     // Testando edge cases
-//     ft_printf("Pointer (max address): %p\n", (void *)-1);  // Endereço máximo em sistemas de 64 bits
-//     ft_printf("Pointer (zero): %p\n", (void *)0);          // Null pointer
-//     ft_printf("Pointer (stack variable): %p\n", &x);       // Endereço de variável stack
-//     ft_printf("Pointer (pointer to pointer): %p\n", &ptr); // Endereço de ponteiro
+//     // Testando combinações
+//     ft_printf("\n=== TESTANDO COMBINAÇÕES ===\n");
+//     ft_printf("Character, string, and integer: %c %s %d\n", 'A', "42", 123);
+//     ft_printf("Hex, unsigned, and pointer: %x %u %p\n", 3735928559, 4294967295, &num);
 
+//     // Edge cases
+//     ft_printf("\n=== TESTANDO EDGE CASES ===\n");
+//     ft_printf("Invalid specifier: %q\n"); // Não deve imprimir nada ou tratar erro
+//     ft_printf("Underflow test: %d\n", -2147483648 - 1); // Comportamento indefinido
+//     ft_printf("Very large unsigned: %u\n", 4294967295 + 1); // Testa valor fora do intervalo
 //     return (0);
 // }
-
-

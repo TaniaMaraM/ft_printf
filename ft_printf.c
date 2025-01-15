@@ -6,7 +6,7 @@
 /*   By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:42:51 by tmarcos           #+#    #+#             */
-/*   Updated: 2025/01/15 13:50:33 by tmarcos          ###   ########.fr       */
+/*   Updated: 2025/01/15 14:48:42 by tmarcos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int is_placeholder(char c)
 			return (1);
 		valid++;
 	}
-	return (0);
+	return (-1);
 }
 // Funcao para lidar com os placeholders
 int ft_format(char specifier, va_list *args)
