@@ -6,7 +6,7 @@ int	main(void)
     ft_printf("=== TESTANDO CARACTERES ===\n");
     ft_printf("Single character: %c\n", 'A');
     ft_printf("Non-printable character: %c\n", '\n');
-    ft_printf("Edge case (null character): %c\n", '\0'); // Pode ser um caso especial
+    ft_printf("Edge case (null character): %c\n", '\0'); // Caso especial para caractere nulo
 
     // Testando strings
     ft_printf("\n=== TESTANDO STRINGS ===\n");
@@ -53,6 +53,8 @@ int	main(void)
     void *ptr = &num;
     ft_printf("Pointer to int: %p\n", ptr);
     ft_printf("Null pointer: %p\n", NULL);
+    ft_printf("Pointer to zero: %p\n", (void *)0); // Ponteiro nulo explícito
+    ft_printf("Pointer with specific address: %p\n", (void *)0xDEADBEEF); // Endereço específico
 
     // Testando combinações
     ft_printf("\n=== TESTANDO COMBINAÇÕES ===\n");
@@ -62,11 +64,11 @@ int	main(void)
     // Edge cases
     ft_printf("\n=== TESTANDO EDGE CASES ===\n");
     ft_printf("Invalid specifier: %q\n"); // Não deve imprimir nada ou tratar erro
-    // ft_printf("Overflow test: %d\n", 2147483647 + 1); // Pode causar comportamento indefinido
-    ft_printf("Underflow test: %d\n", -2147483648 - 1); // Pode causar comportamento indefinido
-    ft_printf("Very large unsigned: %u\n", 4294967295 + 1);
+    ft_printf("Underflow test: %d\n", -2147483648 - 1); // Comportamento indefinido
+    ft_printf("Very large unsigned: %u\n", 4294967295 + 1); // Testa valor fora do intervalo
     return (0);
 }
+
 
 // int	main(void)
 // {

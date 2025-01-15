@@ -5,32 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 15:14:02 by tmarcos           #+#    #+#             */
-/*   Updated: 2025/01/07 19:10:07 by tmarcos          ###   ########.fr       */
+/*   Created: 2025/01/15 10:13:52 by tmarcos           #+#    #+#             */
+/*   Updated: 2025/01/15 12:03:56 by tmarcos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_char(char c)
+// Implementacoes basicas das funcoes auxiliares
+int ft_printchar(char c)
 {
-	return (write(1, &c, 1));
+    return (write(1, &c, 1));
 }
 
-int	print_string(char *str)
+int ft_printstr(const char *str)
 {
-	int	len;
-	int	i;
-
+    int len;
+	
 	len = 0;
-	i = 0;
-	if (!str)
-		return (-1);
-	while (str[i])
-	{
-		len += print_char(str[i]);
-		i++;
-	}
-	return (len);
+    if (!str)
+        str = "(null)";
+    while (str[len] != '\0')
+        ft_printchar(str[len++]);
+    return (len);
 }
-

@@ -13,21 +13,18 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stddef.h>
-# include <unistd.h>
-# include <limits.h>
-# include <stdlib.h>
 # include <stdarg.h>
+# include <unistd.h>
+# include <stdlib.h>
 
-int	ft_printf(const char *format, ...);
-int	handle_placeholder(char specifier, va_list args);
-int	print_string(char *str);
-int	print_char(char c);
-int	print_number(int n);
-int	print_unsigned(unsigned int n);
-int	print_hex_upper(unsigned int n);
-int	print_hex_lower(unsigned int n);
-int	print_hex(unsigned int n, int uppercase);
-int print_pointer(void *ptr);
+int is_placeholder(char c);
+int ft_format(char specifier, va_list *args);
+int ft_printf(const char *format, ...);
+int ft_printchar(char c);
+int ft_printstr(const char *str);
+int ft_printnbr(int n);
+int ft_print_unsigned(unsigned int n);
+int ft_printhex(unsigned long n, const char *base);
+int ft_printptr(void *ptr);
 
 #endif

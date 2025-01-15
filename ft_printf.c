@@ -5,54 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/22 20:09:05 by tmarcos           #+#    #+#             */
-/*   Updated: 2025/01/07 19:10:18 by tmarcos          ###   ########.fr       */
+/*   Created: 2025/01/14 19:42:51 by tmarcos           #+#    #+#             */
+/*   Updated: 2025/01/15 13:50:33 by tmarcos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	handle_placeholder(char specifier, va_list args)
+// Funcao para verificar se o caractere e um placeholder valido
+int is_placeholder(char c)
 {
+	char *valid;
+
+	valid = "cspdiuxX%";
+	while (*valid)
+	{
+		if (c == *valid)
+			return (1);
+		valid++;
+	}
+	return (0);
+}
+// Funcao para lidar com os placeholders
+int ft_format(char specifier, va_list *args)
+{
+	int len;
+	
+	len = 0;
 	if (specifier == 'c')
-		return (print_char(va_arg(args, int)));
+		len = ft_printchar(va_arg(*args, int));
 	else if (specifier == 's')
-		return (print_string(va_arg(args, char *)));
-	else if (specifier == 'd' || specifier == 'i')
-		return (print_number(va_arg(args, int)));
-	else if (specifier == 'u')
-		return (print_unsigned(va_arg(args, unsigned int)));
-	else if (specifier == 'x' || specifier == 'X')
-		return (print_hex(va_arg(args, unsigned int), specifier == 'X'));
+		len = ft_printstr(va_arg(*args, char *));
 	else if (specifier == 'p')
-		return (print_pointer(va_arg(args, void *)));
+		len = ft_printptr(va_arg(*args, void *));
+	else if (specifier == 'd' || specifier == 'i')
+		len = ft_printnbr(va_arg(*args, int));
+	else if (specifier == 'u')
+		len = ft_print_unsigned(va_arg(*args, unsigned int));
+	else if (specifier == 'x')
+		len = ft_printhex(va_arg(*args, unsigned int), "0123456789abcdef");
+	else if (specifier == 'X')
+		len = ft_printhex(va_arg(*args, unsigned int), "0123456789ABCDEF");
 	else if (specifier == '%')
-		return (print_char ('%'));
-	return (0);//checar que so vou retornar -1
+		len = ft_printchar('%');
+	return (len);
 }
 
-int	ft_printf(const char *format, ...)
+// Implementacao da funcao ft_printf
+int ft_printf(const char *format, ...)
 {
-	va_list	args;
-	int		i;
-	int		total_len;
-
+	va_list args;
+	int i;
+	int len;
+	
 	i = 0;
-	total_len = 0;
+	len = 0;
 	if (!format)
 		return (-1);
-	va_start (args, format); //inicializa a lista de args;
+	va_start (args, format);
 	while (format[i] != '\0')
 	{
-		if (format[i] == '%' && format[i + 1]) //encontra a %
+		if (format[i] == '%' && is_placeholder(format[i + 1]))
 		{
-			total_len += handle_placeholder(format[i + 1], args);
-			i++; //pula apos o %;
+			len += ft_format(format[i + 1], &args);
+			i++;
 		}
 		else
-			total_len += print_char(format[i]);
+		{
+			ft_printchar(format[i]);
+			len++;
+		}
 		i++;
 	}
 	va_end (args);
-	return (total_len);
+	return (len);
 }

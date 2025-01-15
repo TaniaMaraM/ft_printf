@@ -6,7 +6,7 @@
 #    By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/22 16:40:49 by tmarcos           #+#    #+#              #
-#    Updated: 2025/01/07 19:25:28 by tmarcos          ###   ########.fr        #
+#    Updated: 2025/01/15 12:09:45 by tmarcos          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,8 @@ REMOVE 		= rm -f
 INCLUDE		= -I .
 
 SRCS 		= ft_printf.c			\
-				print_char_string.c			\
-				print_integer.c				\
-				print_hex.c				\
+				ft_print_ch_str.c			\
+				ft_print_iuptr.c				\
 
 
 OBJS 		= $(SRCS:.c=.o)
