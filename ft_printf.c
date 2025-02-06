@@ -6,16 +6,15 @@
 /*   By: tmarcos <tmarcos@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 19:42:51 by tmarcos           #+#    #+#             */
-/*   Updated: 2025/01/15 14:48:42 by tmarcos          ###   ########.fr       */
+/*   Updated: 2025/01/16 11:05:45 by tmarcos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// Funcao para verificar se o caractere e um placeholder valido
-int is_placeholder(char c)
+int	is_placeholder(char c)
 {
-	char *valid;
+	char	*valid;
 
 	valid = "cspdiuxX%";
 	while (*valid)
@@ -26,11 +25,11 @@ int is_placeholder(char c)
 	}
 	return (-1);
 }
-// Funcao para lidar com os placeholders
-int ft_format(char specifier, va_list *args)
+
+int	ft_format(char specifier, va_list *args)
 {
-	int len;
-	
+	int	len;
+
 	len = 0;
 	if (specifier == 'c')
 		len = ft_printchar(va_arg(*args, int));
@@ -51,13 +50,12 @@ int ft_format(char specifier, va_list *args)
 	return (len);
 }
 
-// Implementacao da funcao ft_printf
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	int i;
-	int len;
-	
+	va_list	args;
+	int		i;
+	int		len;
+
 	i = 0;
 	len = 0;
 	if (!format)
